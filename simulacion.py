@@ -20,7 +20,7 @@ def main():
 
         for jugador in jugadores:
             apuesta = jugador.obtener_valida()
-            gano = jugador.apuesta(num)
+            gano = jugador.tipo_apuesta(num)
             jugador.registrar_resultado(gano, apuesta)
 
     saldo_final = 0

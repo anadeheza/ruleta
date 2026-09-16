@@ -1,23 +1,32 @@
 class Jugador:
+    """Un jugador con su propio cuaderno (estrategia Labouchère)"""
     INICIO = [1, 2, 3, 4]
     MIN_APUESTA = 5
     MAX_APUESTA = 4000
 
-    def __init__(self, nombre, apuesta):
+    def __init__(self, nombre, tipo_apuesta):
+        """
+        nombre: identificador del jugador ("A", "B", "C"...)
+        tipo_apuesta: función que con un número de la ruleta dice si ganó o no
+                      (ej: ruleta.es_rojo)
+        """
         self.nombre = nombre
-        self.apuesta = apuesta
+        self.tipo_apuesta = tipo_apuesta
         self.cuaderno = list(self.INICIO)
         self.saldo = 0
 
     def calcular_apuesta(self):
+        """Devuelve cuánto se va a apostar según el cuaderno actual"""
         if len(self.cuaderno) == 1:
             return self.cuaderno[0]
         return self.cuaderno[0] + self.cuaderno[-1]
 
     def reiniciar_cuaderno(self):
+        """Vuelve a la secuencia inicial."""
         self.cuaderno = list(self.INICIO)
 
     def registrar_resultado(self, gano, monto):
+        """Actualiza el cuaderno y el saldo según el resultado de la apuesta"""
         if gano: 
             self.saldo += monto
             self.cuaderno.append(monto)
@@ -33,6 +42,7 @@ class Jugador:
             self.reiniciar_cuaderno()
 
     def obtener_valida(self):
+        """Devuelve una apuesta válida según los límites de mesa, reiniciando el cuaderno si es necesario"""
         apuesta = self.calcular_apuesta()
         if apuesta < self.MIN_APUESTA or apuesta > self.MAX_APUESTA:
             self.reiniciar_cuaderno()
@@ -40,11 +50,3 @@ class Jugador:
         return apuesta
 
 
-# cuaderno = [1, 2, 3, 4]
-
-#cuaderno[0]      # primer elemento (no lo saca)
-#cuaderno[-1]     # último elemento (no lo saca)
-#cuaderno.append(x)   # agregar al final
-#cuaderno.pop()        # sacar el último
-#cuaderno.pop(0)       # sacar el primero (esto es lo "lento" que hablamos, pero no importa acá)
-#len(cuaderno)         # cuántos elementos quedan
