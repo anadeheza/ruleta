@@ -1,67 +1,75 @@
+# Simulación de ruleta 
 
-# Problem description
+Simulación en **Python** de 6 jugadores apostando al mismo tiempo y en la misma mesa
+de ruleta, cada uno con una apuesta simple distinta (rojo, negro, alto,
+bajo, par, impar), usando la estrategia de cuaderno descripta en el enunciado
+(similar al sistema Labouchère).
 
-## A brief introduction to the game of roulette in case you're not familiar with it.
+## Requisitos
+- Python 3.x
+- Sin dependencias externas: solo usa la librería estándar '*random*'.
 
-The roulette has 37 numbers, from 0 to 36.
+## Archivos
 
-From all the possible bets, we'll focus on the so-called simple bets (odd / even, red / black, low / high). There are 18 numbers of each kind: odds and evens need no explanation, lows are numbers between 1 and 18, highs between 19 and 36. Reds and black can be seen here: http://es.wikipedia.org/wiki/Ruleta#mediaviewer/Archivo:Roulette_frz.png
+| Archivo                   | Contenido                                                                          
+|---------------------------|------------------------------------------------------------------------------------
+| `ruleta.py`               | Clase `Ruleta`: gira y clasifica números (rojo/negro/par/impar/alto/bajo).         
+| `jugador.py`              | Clase `Jugador`: mantiene el cuaderno de cada jugador y calcula sus apuestas.      
+| `simulacion.py`           | Corre una simulación de 10.000 tiradas con los 6 jugadores y muestra el resultado.
+| `test.py`                 | Prueba manual: verifica el giro/clasificación de la ruleta y el comportamiento del cuaderno de un jugador (ganar, perder) contra los ejemplos del enunciado.                                        
+| `simulacion_multiple.py`  | Corre la simulación completa 100 veces y reporta cuántas corridas ganó/perdió el equipo, el promedio, y los extremos — para evaluar el resultado con más de una muestra.                          
 
-Zero is a special number which isn't even, odd, red, black, high nor low. This means that if you placed one of the bets described above and the outcome is zero, you lose!
+## Cómo correrlo
 
-In single bets, if you win, the table will pay you back twice as much: this means that if your bet was 10 you'll get 20 back. If you lose, the table takes the money from your bet.
+Simulación única de 10.000 tiradas (consigna):
 
-## Now to the problem:
+```bash
+python simulacion.py
+```
 
-Let's imagine a group of **6 people** go to the casino to play roulette as a team. They all seat in the same table and **each player bets on one type of simple bets**, so that player A bets on red, player B bets on black, player C bets on high, etc.
+Esto simula 10.000 tiradas de ruleta, actualiza el cuaderno y saldo de cada uno
+de los 6 jugadores según el resultado, y al final imprime el saldo de cada
+jugador y el balance total del equipo.
 
-### For the simulation we'll assume the following:
-**Maximum bet on the table is 4000.**
-**Minimum bet on the table is 5.**
 
-### Strategy:
-Each player has a **notebook** where they keep their bets. At the beginning, the notebook looks like this (we'll call that the initial sequence):
+Para validar reglas de la ruleta y el cuaderno con ejemplos puntuales:
 
-1 - 2 - 3 - 4
+```bash
+python test.py
+```
 
-In order to place their bets they add up both ends of the sequence (in this case 1 + 4 = 5). If they win, they add their winnings (5) to the end of the sequence, while if they lose they scratch both ends of the sequence (1 and 4). For the next bet they add both extremes again.
+Para repetir la simulación 100 veces y ver la distribución de resultados
+(para no sacar conclusiones, una sola corrida de 10.000 tiradas no nos dice mucho sobre la tendencia a ganar o perder del equipo, mas que nada para ver que los calculos se hagan bien incluso cuando se repite muchas veces):
 
-Following with the initial example:
+```bash
+python simulacion_multiple.py
+```
 
-If a player won, the notebook would look like 1 - 2 - 3 - 4 - 5 (next bet would be 1 + 5 = 6)
+## Estrategia 
 
-If he lost, the notebook would look like 2 - 3 (next bet would be 2 + 3 = 5)
+Cada jugador arranca con el cuaderno [1, 2, 3, 4]. Para decidir cuánto
+apostar, suma **el primer y el último número** del cuaderno (si solo queda un
+número, apuesta ese). Si gana, agrega el monto apostado al final del cuaderno.
+Si pierde, tacha (elimina) ambos extremos. Si el cuaderno queda vacío, o si la
+próxima apuesta calculada se sale de los límites de mesa (mínimo 5, máximo
+4000), reinicia con la secuencia inicial ([1, 2, 3, 4]).
 
-If at some point the notebook is empty because he crossed out all the numbers, then he starts over with the initial sequence.
+## Resultados observados
 
-If at some point he only has one number left, that's his bet (he doesn't have to double it as if he was adding both extremes).
+Corriendo la simulación una única vez (10.000 tiradas), el resultado varía ya que los numeros de la ruleta son 100% aleatorios. Para llegar a una conclusión hizo falta repetirlo muchas veces (100) y mirar la distribución de resultados.
 
-If the bet he needs to place is out of the table boundaries (max and min), he starts over with the initial sequence.
+Repitiendo la simulación 100 veces de forma aislada:
 
-Your assignment is to write a program in your language of choice Python that will simulate these 6 people playing simultaneously on the same table. You'll need to simulate the roulette spin as well. The complete sequence of your program would look something like this:
+- El equipo **perdió** en casi todas las corridas (90-95 de 100).
+- El saldo promedio por corrida fue **negativo**.
+- Las pérdidas máximas superaron por bastante a las ganancias máximas.
 
-Player A bets on red
-<br>
-Player B bets on black
-<br>
-Player C bets on high
-<br>
-Player D bets on low
-<br>
-Player E bets on odd
-<br>
-Player F bets on even
+Esto es consistente con lo esperado: la presencia del 0 le da a la mesa una ventaja en cada apuesta individual, y ningún sistema de apuestas puede cambiar esa tendencia a perder en el largo plazo. 
 
-### Roulette spins
-Pay each player according to the roulette outcome
-<br>
-Start over
-<br>
-You need to consider that each player has his own notebook and their bets are independent from one another.
-<br>
-Your simulation should spin the roulette 10,000 times and at the end it should display the money balance of the team. We want to know if they won, lost or broke even.
-<br>
-For the simulation we'll assume the 6 players have unlimited money, so they never stop betting because they have no money left.
-<br>
-Your program must build and run in Linux. Try to use standard libs so that the code is portable.
-Code must be documented.
+La estrategia de esta consigna hace que las rachas ganadoras den ganancias cada vez mayores (el cuaderno crece) y las rachas perdedoras se acotan rápido (el cuaderno se vacía y reinicia), esto puede producir resultados positivos con cierta frecuencia en el corto plazo, pero no alcanza para revertir la desventaja a largo plazo.
+
+## Notas 
+
+- `saldo` representa la ganancia o pérdida **neta** acumulada (no el dinero total en la mesa ni el dinero que tenia en el bolsillo el jugador): al ganar se suma solo el monto apostado (se recupera lo apostado + se gana lo mismo), y al perder se resta el monto apostado.
+- Se asume dinero ilimitado para los 6 jugadores, tal como indica el enunciado: nunca dejan de apostar por falta de fondos.
+- Cada jugador mantiene su propio cuaderno de forma independiente; los resultados de un jugador no afectan las apuestas de los demás (solo comparten la misma tirada de ruleta).
