@@ -3,7 +3,6 @@
 Simulación en **Python** de 6 jugadores apostando al mismo tiempo y en la misma mesa
 de ruleta, cada uno con una apuesta simple distinta (rojo, negro, alto,
 bajo, par, impar), usando la estrategia de cuaderno descripta en el enunciado
-(similar al sistema Labouchère).
 
 ## Requisitos
 - Python 3.x

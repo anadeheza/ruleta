@@ -1,5 +1,5 @@
 class Jugador:
-    """Un jugador con su propio cuaderno (estrategia Labouchère)"""
+    """Un jugador con su propio cuaderno"""
     INICIO = [1, 2, 3, 4]
     MIN_APUESTA = 5
     MAX_APUESTA = 4000

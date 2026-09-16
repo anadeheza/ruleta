@@ -1,3 +1,8 @@
+"""
+Simula 6 jugadores apostando como equipo, a la vez, en la misma mesa de ruleta.
+Cada uno cubre un tipo distinto de apuesta simple y lleva su propio
+cuaderno. Después de 10.000 tiradas se muestra el saldo neto del equipo.
+"""
 from ruleta import Ruleta
 from jugador import Jugador
 
@@ -6,6 +11,7 @@ RONDAS = 10000
 def main():
     ruleta = Ruleta()
 
+    # Un jugador por cada apuesta, los cuadernos son independientes
     jugadores = [
         Jugador("A", ruleta.es_rojo),
         Jugador("B", ruleta.es_negro),
@@ -16,6 +22,7 @@ def main():
     ]
 
     for _ in range(RONDAS):
+        # Todos juegan a la par, con el mismo número, cada uno gana o pierde según su apuesta
         num = ruleta.girar()
 
         for jugador in jugadores:
@@ -23,6 +30,7 @@ def main():
             gano = jugador.tipo_apuesta(num)
             jugador.registrar_resultado(gano, apuesta)
 
+    # saldo es la ganancia/pérdida neta acumulada de cada uno (no el dinero en mesa)
     saldo_final = 0
     for j in jugadores:
         saldo_final += j.saldo
