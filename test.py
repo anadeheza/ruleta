@@ -9,13 +9,13 @@ for _ in range(10):
 
 print("\n")
 j = Jugador("A", None)  
-print(j.cuaderno)          
-print(j.calc_apuesta())   
+print(j.cuaderno) 
+print("apuesta: ", j.calcular_apuesta())   
 
-j.regist_result(True, 5)  
+j.registrar_resultado(True, 5)  
 print(j.cuaderno)          
-print(j.saldo)    
+print("ganó, su saldo es: ", j.saldo)    
 
-j.regist_result(False, 5)  
+j.registrar_resultado(False, 5)  
 print(j.cuaderno)          
-print(j.saldo)            
+print("perdió, su saldo es: ", j.saldo)            

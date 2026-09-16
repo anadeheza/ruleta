@@ -19,7 +19,7 @@ class Jugador:
 
     def registrar_resultado(self, gano, monto):
         if gano: 
-            self.saldo += monto 
+            self.saldo += monto
             self.cuaderno.append(monto)
         else:
             self.saldo -= monto
@@ -30,8 +30,14 @@ class Jugador:
                 self.cuaderno.pop(0)
 
         if len(self.cuaderno) == 0:
-            self.reiniciar_cuad()
+            self.reiniciar_cuaderno()
 
+    def obtener_valida(self):
+        apuesta = self.calcular_apuesta()
+        if apuesta < self.MIN_APUESTA or apuesta > self.MAX_APUESTA:
+            self.reiniciar_cuaderno()
+            apuesta = self.calcular_apuesta()
+        return apuesta
 
 
 # cuaderno = [1, 2, 3, 4]
