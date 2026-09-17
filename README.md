@@ -10,13 +10,13 @@ bajo, par, impar), usando la estrategia de cuaderno descripta en el enunciado
 
 ## Archivos
 
-| Archivo                   | Contenido                                                                          
-|---------------------------|------------------------------------------------------------------------------------
-| `ruleta.py`               | Clase `Ruleta`: gira y clasifica números (rojo/negro/par/impar/alto/bajo).         
-| `jugador.py`              | Clase `Jugador`: mantiene el cuaderno de cada jugador y calcula sus apuestas.      
-| `simulacion.py`           | Corre una simulación de 10.000 tiradas con los 6 jugadores y muestra el resultado.
-| `test.py`                 | Prueba manual: verifica el giro/clasificación de la ruleta y el comportamiento del cuaderno de un jugador (ganar, perder) contra los ejemplos del enunciado.                                        
-| `simulacion_multiple.py`  | Corre la simulación completa 100 veces y reporta cuántas corridas ganó/perdió el equipo, el promedio, y los extremos — para evaluar el resultado con más de una muestra.                          
+| Archivo                 | Contenido                                                                          
+|-------------------------|------------------------------------------------------------------------------------
+| ruleta.py               | Clase `Ruleta`: gira y clasifica números (rojo/negro/par/impar/alto/bajo).         
+| jugador.py              | Clase `Jugador`: mantiene el cuaderno de cada jugador y calcula sus apuestas.      
+| simulacion.py           | Corre una simulación de 10.000 tiradas con los 6 jugadores y muestra el resultado.
+| test.py                 | Prueba manual: verifica el giro/clasificación de la ruleta y el comportamiento del cuaderno de un jugador (ganar, perder) contra los ejemplos del enunciado.                                        
+| simulacion_multiple.py  | Corre la simulación completa 100 veces y reporta cuántas corridas ganó/perdió el equipo, el promedio, y los extremos — para evaluar el resultado con más de una muestra.                          
 
 ## Cómo correrlo
 
