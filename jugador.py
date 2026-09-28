@@ -35,8 +35,8 @@ class Jugador:
             if len(self.cuaderno) == 1:
                 self.cuaderno.pop() 
             else:  
-                self.cuaderno.pop() 
-                self.cuaderno.pop(0)
+                self.cuaderno.pop() #ultimo
+                self.cuaderno.pop(0) #primero
 
         if len(self.cuaderno) == 0:
             self.reiniciar_cuaderno()

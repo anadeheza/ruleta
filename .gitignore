@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Testing / cobertura
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Linters / type checkers
+.mypy_cache/
+.ruff_cache/
+
+# Variables de entorno
+.env
+.env.*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini

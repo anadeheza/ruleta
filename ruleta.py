@@ -1,6 +1,6 @@
 import random
 
-# Numeros rojos en una ruleta comun:
+# Numeros rojos en una ruleta:
 ROJOS = {1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36 }
 
 class Ruleta:
@@ -25,7 +25,7 @@ class Ruleta:
 
     def es_impar(self, num):
         """True si es impar """
-        return num % 2 != 0 #no se excluimos explicitamente el 0 porque 0 % 2 == 0
+        return num % 2 != 0 #no se excluye explicitamente el 0 porque 0 % 2 == 0
 
     def es_bajo(self, num):
         """True si está entre 1 y 18"""
